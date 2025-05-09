@@ -1,0 +1,60 @@
+# Required Libraries 
+import pandas as pd
+import numpy as np 
+import matplotlib.pyplot as plt
+
+# Loading the dataset
+df = pd.read_csv('Downloads/data_income_consumption_gender.csv')
+df.columns = ['Income','Consumption','Gender'] 
+
+#1. Summary of the dataset
+stats = df.describe()
+print('Summary Statistics: \n', stats)
+
+#2. Normalised Histogram of income
+income_data = df['Income']
+plt.figure(figsize=(8,6))
+count, bins, _ = plt.hist(income_data, bins=40, density=True, alpha=0.6, color='skyblue', 
+                          edgecolor='black', label='Empirical Histogram')
+
+#3. Fit Lognormal Distribution
+shape_ln, loc_ln, scale_ln = lognorm.fit(income_data, floc=0)
+x = np.linspace(income_data.min(), income_data.max(), 1000)
+pdf_ln = lognorm.pdf(x, shape_ln, loc_ln, scale_ln)
+plt.plot(x, pdf_ln, 'r-', lw=2, label='Lognormal Fit')
+
+#4. Fit Gamma Distribution 
+shape_g, loc_g, scale_g = gamma.fit(income_data, floc=0)
+pdf_g = gamma.pdf(x, shape_g, loc_g, scale_g)
+plt.plot(x, pdf_g, 'g-', lw=2, label='Gamma Fit')
+
+
+plt.title('Normalized Histogram of Income with Fitted Distributions')
+plt.xlabel('Income')
+plt.ylabel('Density')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+#5. Log likelihoods
+log_likelihood_ln = np.sum(lognorm.logpdf(income_data, shape_ln, loc_ln, scale_ln))
+log_likelihood_g = np.sum(gamma.logpdf(income_data, shape_g, loc_g, scale_g))
+print(f"Log-likelihood (Lognormal): {log_likelihood_ln}")
+print(f"Log-likelihood (Gamma): {log_likelihood_g}")
+
+#6. Regression to fit MPC
+X = df[['Income', 'Gender']]
+X = sm.add_constant(X)  # Add intercept
+y = df['Consumption']
+model = sm.OLS(y, X).fit()
+
+print(model.summary())
+
+#7. Extracting Regression Table
+regression_table = pd.DataFrame({'Coefficient':model.params, 
+                                 'Std. Error': model.bse,
+                                 't-value': model.tvalues,
+                                 'P>|t|': model.pvalues
+                                })
+print('\nFormatted Regression Output: \n', regression_table)
