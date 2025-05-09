@@ -1,0 +1,51 @@
+#1. 
+Summary Statistics: 
+              Income   Consumption      Gender
+count  9.610000e+02  9.610000e+02  961.000000
+mean   2.575565e+05  2.401659e+05    0.529657
+std    1.846497e+05  1.425792e+05    0.499380
+min    1.890100e+04  0.000000e+00    0.000000
+25%    1.470010e+05  1.488651e+05    0.000000
+50%    2.050010e+05  2.262722e+05    1.000000
+75%    3.087010e+05  3.085111e+05    1.000000
+max    1.641001e+06  1.141876e+06    1.000000
+
+
+
+#6. 
+OLS Regression Results                            
+==============================================================================
+Dep. Variable:            Consumption   R-squared:                       0.592
+Model:                            OLS   Adj. R-squared:                  0.591
+Method:                 Least Squares   F-statistic:                     694.3
+Date:                Sat, 10 May 2025   Prob (F-statistic):          4.36e-187
+Time:                        01:11:12   Log-Likelihood:                -12337.
+No. Observations:                 961   AIC:                         2.468e+04
+Df Residuals:                     958   BIC:                         2.470e+04
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       8.473e+04   5866.294     14.444      0.000    7.32e+04    9.62e+04
+Income         0.5934      0.016     37.204      0.000       0.562       0.625
+Gender      4912.5943   5897.430      0.833      0.405   -6660.779    1.65e+04
+==============================================================================
+Omnibus:                        2.103   Durbin-Watson:                   2.043
+Prob(Omnibus):                  0.349   Jarque-Bera (JB):                1.977
+Skew:                           0.078   Prob(JB):                        0.372
+Kurtosis:                       3.158   Cond. No.                     7.78e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 7.78e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
+#7. 
+Formatted Regression Output: 
+          Coefficient   Std. Error    t-value          P>|t|
+const   84734.808152  5866.294363  14.444350   6.227559e-43
+Income      0.593381     0.015949  37.203917  3.591965e-188
+Gender   4912.594270  5897.430293   0.833006   4.050490e-01
